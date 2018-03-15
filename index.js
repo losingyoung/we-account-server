@@ -37,7 +37,8 @@ const Router = require('koa-router')
 const app = new Koa()
 const router = new Router()
 const user = require('./routers/user')
-
+const tableRoute = require('./routers/table')
+const db =require('./db')
 // router.get('', (ctx, next) => {
 //     console.log(ctx)
 //     ctx.body = 'Hello World!';
@@ -49,10 +50,16 @@ const user = require('./routers/user')
 // (ctx, next) => {
 // console.log('end')
 // })
+app.use(async (ctx,next) => {
+    ctx.db = await db()
+    next()
+})
 router.use('/user', user.routes())
+router.use('/table', tableRoute.routes())
 
 app.use(router.routes())
 .use(router.allowedMethods());
+
 
 
 app.listen(4000)
