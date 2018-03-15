@@ -52,7 +52,7 @@ const db =require('./db')
 // })
 app.use(async (ctx,next) => {
     ctx.db = await db()
-    next()
+   await next()
 })
 router.use('/user', user.routes())
 router.use('/table', tableRoute.routes())
