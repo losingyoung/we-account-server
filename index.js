@@ -33,7 +33,7 @@ function exeC(args) {
 
 const Koa = require('koa')
 const Router = require('koa-router')
-
+const bodyParser = require('koa-bodyparser');
 const app = new Koa()
 const router = new Router()
 const user = require('./routers/user')
@@ -50,6 +50,7 @@ const db =require('./db')
 // (ctx, next) => {
 // console.log('end')
 // })
+app.use(bodyParser())
 app.use(async (ctx,next) => {
     ctx.db = await db()
    await next()
