@@ -33,9 +33,6 @@ zE2xLlH/2635k2Vzt39/fXqYH+KebivgPRR9xKf/HVaF98KP8A7FWK+y+wfETLUD/PWnBsrJjfY9XYX3
             income: 10000,
             gender: "0"
     }}
-    ctx.body = {
-        'signup': 'signup'
-    }
 })
 
 module.exports = router

@@ -48,10 +48,17 @@ const db =require('./db')
 // (ctx, next) => {
 // console.log('end')
 // })
+let connection;
+db().then(con => {
+    connection = con
+})
+let i =0
 app.use(bodyParser())
 app.use(async (ctx,next) => {
-    ctx.db = await db()
+    console.log('第', i++ ,"次连接")
+   ctx.db = connection
    await next()
+//    ctx.db.
 })
 
 app.use(router.routes())

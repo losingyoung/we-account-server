@@ -29,3 +29,10 @@ module.exports = async function connection() {
       });
       return connection
 }
+// module.exports = mysql.createConnection({
+//     host: config.host,
+//     user:  config.username,
+//     password: config.password,
+//     database: config.database,
+//     port:config.port
+//   });
