@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
 // const Demo = require('../models/demo')
-const db = require('../db')
+// const db = require('../db')
 const FIELDS = ['name', 'age']
 const TABLENAME = 'demos'
 router.post('/query',async ctx => {
