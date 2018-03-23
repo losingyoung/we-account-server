@@ -56,4 +56,24 @@ router.post('/get_group_icons', ctx => {
         title: '摄影'
     }]
 })
+router.post('/get_default_icons', ctx => {
+    ctx.body = [{
+        id: 123,
+        type: 'sports',
+        title: '运动'
+    }, {
+        id: 1234,
+        type: 'transport',
+        title: '交通'
+    }, {
+        id: 12345,
+        type: 'travel',
+        title: '旅游'
+    }, {
+        id: 123456,
+        type: 'photo',
+        title: '摄影'
+    }]
+})
+
 module.exports = router
