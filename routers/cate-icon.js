@@ -75,5 +75,19 @@ router.post('/get_default_icons', ctx => {
         title: '摄影'
     }]
 })
-
+router.post('/add_icon', ctx => {
+    ctx.body = {
+        success: true
+    }
+})
+router.post('/update_icon', ctx => {
+    ctx.body = {
+        success: true
+    }
+})
+router.post('/delete_icon', ctx => {
+    ctx.body = {
+        success: true
+    }
+})
 module.exports = router
