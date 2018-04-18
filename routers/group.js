@@ -5,8 +5,8 @@ const router = new Router()
 router.post('/get_groups_by_wa_code', ctx => {
     ctx.body = {
         groupInfos: [{
-            id: 222,
-            name: 'group1',
+            group_id: 222,
+            groupName: 'group1',
             owner_wa_code: 777,
             ownerName:'losingyoung',
             avatar: "http://ourrovucw.bkt.clouddn.com/avatar_girl.jpg",
@@ -23,8 +23,8 @@ router.post('/get_groups_by_wa_code', ctx => {
                 owner: true
             }] 
         }, {
-            id: 223,
-            name: 'group2',
+            group_id: 223,
+            groupName: 'group2',
             owner_wa_code: 737,
             ownerName:'tiffany',
             members: [{
@@ -45,6 +45,17 @@ router.post('/get_groups_by_wa_code', ctx => {
                 avatar: ""
             }] 
         }]
+    }
+})
+router.post('/create_group', ctx => {
+    ctx.body = {
+        success: true
+    }
+})
+router.post('/edit_group', ctx => {
+    ctx.body = {
+        success: true,
+        errMsg: ''
     }
 })
 module.exports = router
