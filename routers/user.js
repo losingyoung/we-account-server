@@ -55,7 +55,32 @@ zE2xLlH/2635k2Vzt39/fXqYH+KebivgPRR9xKf/HVaF98KP8A7FWK+y+wfETLUD/PWnBsrJjfY9XYX3
         }
     }
 })
-
+router.post('/update_user_info', ctx => {
+    // 更新user info 并返回最新的groupInfo
+    ctx.body = {
+        success: true,
+        errorMsg: '',
+        groupInfo:[{
+            group_id: 2222,
+            groupName: 'group1new',
+            owner_wa_code: 777,
+            ownerName:'losingyoungnew',
+            avatar: "http://ourrovucw.bkt.clouddn.com/avatar_girl.jpg",
+            members: [{
+                wa_code: 333,
+                name: 'member1new',
+                gender: "0",
+                avatar: "http://ourrovucw.bkt.clouddn.com/avatar_girl.jpg"
+            }, {
+                wa_code: 777,
+                name: 'losingyoungnew',
+                gender: "0",
+                avatar: "",
+                owner: true
+            }] 
+        }]
+    }
+})
 router.post('/upload_user_avatar', ctx => {
     console.log('request', ctx.request)
     ctx.body = {
