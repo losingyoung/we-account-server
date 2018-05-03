@@ -7,9 +7,12 @@ router.post('/get_groups_by_wa_code', ctx => {
         groupInfos: [{
             group_id: 222,
             groupName: 'group1',
+            budget: 4000,
             owner_wa_code: 777,
             ownerName:'losingyoung',
             avatar: "http://ourrovucw.bkt.clouddn.com/avatar_girl.jpg",
+            createdTime:15000000,
+            updateTime:153000000,
             members: [{
                 wa_code: 333,
                 name: 'member1',
@@ -25,8 +28,11 @@ router.post('/get_groups_by_wa_code', ctx => {
         }, {
             group_id: 223,
             groupName: 'group2',
+            budget: 5000,
             owner_wa_code: 737,
             ownerName:'tiffany',
+            createdTime:15000000,
+            updateTime:153000000,
             members: [{
                 wa_code: 777,
                 name: 'losingyoung',
@@ -43,7 +49,7 @@ router.post('/get_groups_by_wa_code', ctx => {
                 name: 'member2',
                 gender: "0",
                 avatar: ""
-            }] 
+            }]
         }]
     }
 })
