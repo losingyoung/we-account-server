@@ -85,8 +85,22 @@ router.post('/get_account_items', ctx => {
             averageDay: 50,
             chartData: {
                 totalOverview: {
-                    date: ["3月","4月","5月"],
-                    data: [3030,4020,5943]
+                    date: ["3","4","5", "6", "7", "8", "9", "10", "11", "12", "1", "2"],
+                    data: [1234567,1,2,3,4,5,6,7,8,9,40,1220]
+                },
+                yearDetails: {
+                    2018: {
+                        monthDetails: {
+                           4: {
+                               totalCost: 4000,
+                               categoryDetail: [{
+                                categoryId: 1,
+                                categoryName: 'bus',
+                                cost:432
+                               }]
+                           }
+                        }
+                    }
                 }
             },
             items: [
@@ -99,6 +113,8 @@ router.post('/get_account_items', ctx => {
                     price: 20,
                     description: 'some desc1',
                     date: 15201253,
+                    year: 2018,
+                    month: 4,
                     dateStr:"2018年10月23日",
                     isOutcome: "0" //收入还是支出
                 },
@@ -111,6 +127,8 @@ router.post('/get_account_items', ctx => {
                     price: 30,
                     description: 'some desc2',
                     date: 152012503,
+                    year: 2018,
+                    month: 4,
                     dateStr:"2018年10月23日",
                     isOutcome: "0" //收入还是支出
                 }
@@ -123,8 +141,8 @@ router.post('/get_account_items', ctx => {
             averageDayPerson: 30,
             chartData: {
                 totalOverview: {
-                    date: ["3月","4月","5月"],
-                    data: [80300,40200,59430]
+                    date: ["3月","4月","5月", "6月", "6月", "6月", "6月", "6月", "6月", "6月", "6月", "3月"],
+                    data: [123456789012,40200,59430,40200,40200,40200,40200,40200,40200,40200,40200,880200]
                 }
             },
             items: [{
@@ -139,6 +157,8 @@ router.post('/get_account_items', ctx => {
                 price: 20,
                 description: 'some desc3',
                 date: 15201253,
+                year: 2018,
+                month: 4,
                 dateStr:"2018年10月23日",
                 isOutcome: "0"
             }, {
@@ -153,6 +173,8 @@ router.post('/get_account_items', ctx => {
                 price: 20,
                 description: 'some desc4',
                 date: 15201253,
+                year: 2018,
+                month: 4,
                 dateStr:"2018年10月23日",
                 isOutcome: "0"
             }]
@@ -161,10 +183,12 @@ router.post('/get_account_items', ctx => {
             totalCost: 0,
             averageDay: 0,
             averageDayPerson: 0,
+            year: 2018,
+            month: 4,
             chartData: {
                 totalOverview: {
-                    date: [],
-                    data: []
+                    date: ["1"],
+                    data: [1234567]
                 }
             },
             items: []
