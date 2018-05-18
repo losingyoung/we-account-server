@@ -124,8 +124,8 @@ router.post('/get_account_items', ctx => {
                     totalCost:432
                  }, {
                     categoryId: 2,
-                    categoryName: 'bus',
-                    totalCost:432
+                    categoryName: 'buss',
+                    totalCost:4322
                  }]
               }, {
                     month: 2,
@@ -136,8 +136,8 @@ router.post('/get_account_items', ctx => {
                         totalCost:432
                    }, {
                         categoryId: 3,
-                        categoryName: 'bus',
-                        totalCost:432
+                        categoryName: 'busc',
+                        totalCost:4324
                  }]
                 }]
         }]
@@ -191,8 +191,14 @@ router.post('/get_account_items', ctx => {
             averageDay: 50,
             chartData: {
                 totalOverview: {
-                    date: [3,4,5, 6, 7, 8, 9, 10, 11, 12, 1, 2],
-                    data: [1234567,1,2,3,4,5,6,7,8,9,40,1220]
+                    month: {
+                      date: [3,4,5, 6, 7, 8, 9, 10, 11, 12, 1, 2],
+                      data: [1234567,1,2,3,4,5,6,7,8,9,40,1220]
+                    },
+                    year: {
+                        date: [2017, 2018],
+                        data: [1234567,456] 
+                    }
                 },
                 yearData,
                 monthData
@@ -257,9 +263,17 @@ router.post('/get_account_items', ctx => {
             averageDayPerson: 30,
             chartData: {
                 totalOverview: {
-                    date: ["3月","4月","5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月", "1月", "2月"],
-                    data: [123456789012,40200,59430,40200,40200,40200,40200,40200,40200,40200,40200,880200]
-                }
+                    month: {
+                      date: [3,4,5, 6, 7, 8, 9, 10, 11, 12, 1, 2],
+                      data: [1234567,1,2,3,4,5,6,7,8,9,40,1220]
+                    },
+                    year: {
+                        date: [2017, 2018],
+                        data: [1234567,456] 
+                    }
+                },
+                yearData: {},
+                monthData: {}
             },
             items: [{
                 itemId:3,
@@ -305,9 +319,17 @@ router.post('/get_account_items', ctx => {
             month: 4,
             chartData: {
                 totalOverview: {
-                    date: ["1"],
-                    data: [1234567]
-                }
+                    month: {
+                      date: [3,4,5, 6, 7, 8, 9, 10, 11, 12, 1, 2],
+                      data: [1234567,1,2,3,4,5,6,7,8,9,40,1220]
+                    },
+                    year: {
+                        date: [2017, 2018],
+                        data: [1234567,456] 
+                    }
+                },
+                yearData: {},
+                monthData: {}
             },
             items: []
         }]

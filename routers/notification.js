@@ -9,7 +9,6 @@ router.post('/get_unread_notifications', ctx => {
 })
 router.post("/get_notifications", ctx => {
 
-    console.log("????")
     ctx.body= {
         success: true,
         notifications: [{
