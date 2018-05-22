@@ -1,38 +1,34 @@
 
 // const Sequelize = require('sequelize');
 const config = require('../config').dbOptions
+const dbOptions = {
+    host: config.host,
+    user:  config.username,
+    password: config.password,
+    database: config.database,
+    port:config.port
+  }
+const mysql = require('mysql2');
+const pool = mysql.createPool(dbOptions)
 
-// var sequelize = new Sequelize(config.database, config.username, config.password, {
-//     host: config.host,
-//     dialect: 'mysql',
-//     port: 3050,
-//     pool: {
-//         max: 5,
-//         min: 0,
-//         idle: 30000
-//     }
-// });
-
-const mysql = require('mysql2/promise');
-
-// create the connection to database
-
-
-
-module.exports = async function connection() {
-    let connection =await mysql.createConnection({
-        host: config.host,
-        user:  config.username,
-        password: config.password,
-        database: config.database,
-        port:config.port
-      });
-      return connection
+const query = (sql, values) => {
+    return new Promise((resolve, reject) => {
+        pool.getConnection((err, connection) => {
+            if (err) {
+                reject(err)
+                return
+            }
+            connection.query(sql, values, (err, rows) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(rows)
+                }
+                connection.release()     
+            })
+        })
+    })
 }
-// module.exports = mysql.createConnection({
-//     host: config.host,
-//     user:  config.username,
-//     password: config.password,
-//     database: config.database,
-//     port:config.port
-//   });
+module.exports = {
+    query
+}

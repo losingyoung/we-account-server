@@ -7,7 +7,14 @@ const cateIcons = require('./cate-icon')
 const account = require('./account')
 const notification = require('./notification')
 
-router.use('/user', user.routes())
+router.use('/', async (ctx, next) => {
+    console.log('all')
+    await next()
+})
+router.use('/user',async (ctx, next) => {
+    console.log('before user')
+    await next()
+}, user.routes())
 router.use('/table', tableRoute.routes())
 router.use('/group', group.routes())
 router.use('/cate_icon', cateIcons.routes())

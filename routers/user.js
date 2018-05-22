@@ -2,6 +2,9 @@ const Router = require('koa-router')
 const router = new Router()
 
 router.post('/signup', ctx => {
+    ctx.dbQuery('SELECT * FROM demos ORDER BY id').then(rows => {
+        console.log('query')
+    })
     ctx.body = {
         'signup': 'signup'
     }

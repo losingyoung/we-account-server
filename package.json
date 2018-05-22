@@ -18,12 +18,10 @@
   },
   "homepage": "https://github.com/losingyoung/we-account-server#readme",
   "dependencies": {
-    "co": "^4.6.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
     "mysql": "^2.15.0",
-    "mysql2": "^1.5.2",
-    "sequelize": "^4.37.0"
+    "mysql2": "^1.5.2"
   }
 }
