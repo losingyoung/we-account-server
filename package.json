@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/losingyoung/we-account-server#readme",
   "dependencies": {
+    "bcrypt": "^2.0.1",
+    "eventproxy": "^1.0.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",

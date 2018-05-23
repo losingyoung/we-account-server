@@ -1,10 +1,53 @@
 const Router = require('koa-router')
 const router = new Router()
+const {genRandomCode} = require('../utils/common')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
-router.post('/signup', ctx => {
-    ctx.dbQuery('SELECT * FROM demos ORDER BY id').then(rows => {
-        console.log('query')
-    })
+
+router.post('/signup', async ctx => {
+    console.log('signup body', ctx)
+    const params = ctx.request.body
+    const account = params.account
+    // + 校验
+    const result = await ctx.dbQuery('SELECT * FROM user_account WHERE account=?', account)
+    console.log('query result', result)
+    if (result.length === 0) {
+        // 注册
+        const pwdHash = await bcrypt.hash(params.pwd, saltRounds)
+        let uniqueWaCode = false
+        let wa_code = genRandomCode()
+        while (!uniqueWaCode) {
+            let existWaCode = await ctx.dbQuery('SELECT * FROM userinfo WHERE wa_code=?', wa_code)
+            if (existWaCode.length === 0) {
+                uniqueWaCode = true
+            } else {
+                wa_code = genRandomCode()
+            }
+        }
+
+        const name = genRandomCode()
+        let maxNo = await ctx.dbQuery('SELECT MAX(no) AS max_no FROM userinfo')
+        let curNo = maxNo[0].max_no
+        if (!curNo) {
+            curNo = 1
+        } else {
+            curNo += 1
+        }
+
+        console.log('pwd', pwdHash, 'wacode', wa_code, 'name', name, 'curNo', curNo)
+        try {
+            await ctx.dbQuery('INSERT INTO userinfo (no, wa_code, name) VALUES (?, ?, ?)', [curNo, wa_code, name])
+            await ctx.dbQuery('INSERT INTO user_account (wa_code, account, pwd) VALUES (?, ?, ?)', [wa_code, account, pwdHash])
+        } catch (error) {
+            console.log('insert error', error)
+        }
+
+
+
+    } else {
+        // 验证登录
+    }
     ctx.body = {
         'signup': 'signup'
     }
