@@ -3,18 +3,20 @@ const router = new Router()
 const {genRandomCode} = require('../utils/common')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
-
+const md5 = require('blueimp-md5')
 
 router.post('/signup', async ctx => {
     console.log('signup body', ctx)
     const params = ctx.request.body
     const account = params.account
+    const md5Pwd = md5(params.pwd, account)
     // + 校验
-    const result = await ctx.dbQuery('SELECT * FROM user_account WHERE account=?', account)
-    console.log('query result', result)
-    if (result.length === 0) {
+    const userAccount = await ctx.dbQuery('SELECT * FROM user_account WHERE account=?', account)
+    console.log('query result', userAccount)
+    if (userAccount.length === 0) {
+        console.log('新用户')
         // 注册
-        const pwdHash = await bcrypt.hash(params.pwd, saltRounds)
+        const pwdHash = await bcrypt.hash(md5Pwd, saltRounds)
         let uniqueWaCode = false
         let wa_code = genRandomCode()
         while (!uniqueWaCode) {
@@ -39,18 +41,31 @@ router.post('/signup', async ctx => {
         try {
             await ctx.dbQuery('INSERT INTO userinfo (no, wa_code, name) VALUES (?, ?, ?)', [curNo, wa_code, name])
             await ctx.dbQuery('INSERT INTO user_account (wa_code, account, pwd) VALUES (?, ?, ?)', [wa_code, account, pwdHash])
+            ctx.body = {
+                'success': true,
+                'data': {
+                   
+                 }
+               }
         } catch (error) {
+            //  删掉
             console.log('insert error', error)
         }
 
-
-
     } else {
         // 验证登录
+       console.log('验证登录')
+       const correct = await bcrypt.compare(md5Pwd, userAccount[0].pwd)
+       console.log('老用户', userAccount)
+       console.log('pwd result', correct)
+       ctx.body = {
+        'success': true,
+        'data': {
+           correct
+         }
+       }
     }
-    ctx.body = {
-        'signup': 'signup'
-    }
+
 })
 
 router.post('/get_user_info', ctx => {
