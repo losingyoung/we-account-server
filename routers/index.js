@@ -8,7 +8,7 @@ const account = require('./account')
 const notification = require('./notification')
 
 // router.use('/', async (ctx, next) => {
-//     console.log('all')
+//     console.log('before all')
 //     await next()
 // })
 router.use('/user', async (ctx, next) => {
@@ -20,5 +20,17 @@ router.use('/group', group.routes())
 router.use('/cate_icon', cateIcons.routes())
 router.use('/account', account.routes())
 router.use('/notification', notification.routes())
+router.use('/', async (ctx, next) => {
+    let success = ctx.body.data ? true : false
+    let errorMsg = ctx.body.errorMsg ? ctx.body.errorMsg : '服务器错误'
+    if (success) {
+        errorMsg = null
+    }
+    ctx.body = Object.assign({}, ctx.body, {
+        success,
+        errorMsg
+    })
+    await next()
+})
 
 module.exports = router

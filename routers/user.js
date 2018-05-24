@@ -5,14 +5,14 @@ const bcrypt = require('bcrypt')
 const saltRounds = 10
 const md5 = require('blueimp-md5')
 
-router.post('/signup', async ctx => {
-    console.log('signup body', ctx)
+router.post('/signup', async (ctx, next) => {
+    console.log('signup body', ctx.request.body)
     const params = ctx.request.body
     const account = params.account
     const md5Pwd = md5(params.pwd, account)
     // + 校验
     const userAccount = await ctx.dbQuery('SELECT * FROM user_account WHERE account=?', account)
-    console.log('query result', userAccount)
+    console.log('user query result', userAccount)
     if (userAccount.length === 0) {
         console.log('新用户')
         // 注册
@@ -42,32 +42,32 @@ router.post('/signup', async ctx => {
             await ctx.dbQuery('INSERT INTO userinfo (no, wa_code, name) VALUES (?, ?, ?)', [curNo, wa_code, name])
             await ctx.dbQuery('INSERT INTO user_account (wa_code, account, pwd) VALUES (?, ?, ?)', [wa_code, account, pwdHash])
             ctx.body = {
-                'success': true,
-                'data': {
-                   
+                data: {
+                   new: true
                  }
-               }
+            }
         } catch (error) {
             //  删掉
             console.log('insert error', error)
+            ctx.body = {
+                errorMsg: '注册用户失败'
+            }
         }
 
     } else {
         // 验证登录
-       console.log('验证登录')
+       console.log('老用户验证登录')
        const correct = await bcrypt.compare(md5Pwd, userAccount[0].pwd)
-       console.log('老用户', userAccount)
        console.log('pwd result', correct)
        ctx.body = {
-        'success': true,
-        'data': {
-           correct
+         data: {
+            new: false,
+            correct
          }
        }
     }
-
+    await next()
 })
-
 router.post('/get_user_info', ctx => {
     ctx.body = {
         userInfo: {
